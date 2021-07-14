@@ -1,0 +1,8 @@
+FROM python:latest
+
+LABEL version="1.0"
+LABEL contributer="BLITZ"
+
+RUN echo "print('Hello World from Blitz')" > hw.py
+
+CMD [ "python","./hw.py" ]

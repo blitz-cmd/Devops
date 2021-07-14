@@ -1,0 +1,12 @@
+FROM nginx:latest
+
+LABEL version="0.0.1"
+LABEL maintainer="dj.debnath2000@gmail.com"
+
+WORKDIR /usr/share/nginx/html
+
+RUN echo "<h1>Edited nginx file</h1>" > index.html
+
+EXPOSE 90
+
+CMD [ "nginx","-g","daemom off;" ]

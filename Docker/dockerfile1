@@ -1,0 +1,17 @@
+#each instruction in this file generates a new layer that gets pushed to your local image cache
+#the line below states we will base out new image on the latest official image
+FROM ubuntu:latest
+
+#identify the version & maintainer of the image
+LABEL version="0.0.1"
+LABEL maintainer="dj.debnath2000@gmail.com"
+
+#update the image to the latest packages & install nginx
+RUN sudo apt update && sudo apt upgrade -y
+RUN sudo apt install -y nginx
+
+#expose nginx to port 90
+EXPOSE 90
+
+#within the multiple cmd, the last cmd command only executes
+CMD [ "nginx","-g","daemom off;" ]
