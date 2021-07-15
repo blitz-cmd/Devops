@@ -1,0 +1,35 @@
+#specifies the compose file syntax version
+version: '3'
+#service is the name for a container in production
+services: 
+    #container service name
+    db:
+        image: mysql:latest
+        volumes: 
+            - db_data:/var/lib/mysql
+        restart: always
+        #similar to -e in docker run command
+        environment: 
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+        networks: 
+            - wpsite
+    wordpress:
+        depends_on: 
+            - db
+        image: wordpress:latest
+        ports: 
+            - "9999:80"
+        restart: always
+        environment: 
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+        networks: 
+            - wpsite
+networks: 
+    wpsite:
+volumes: 
+    db_data:
