@@ -1,0 +1,19 @@
+version: "3"
+services: 
+    web:
+        image: blitz504/flask_ser
+        deploy:
+            replicas: 5
+            # resources:
+            #     limits: 
+            #         cpus: 0.1
+            #         memort: 50M
+            restart_policy:
+                condition: on-failure
+        ports: 
+            - "4000:80"
+        networks: 
+            - webnet
+networks: 
+    webnet:
+            
