@@ -14,6 +14,33 @@ services:
             - "4000:80"
         networks: 
             - webnet
+
+    visualizer:
+        image: dockersamples/visualizer:latest
+        ports:
+            - "8080:8080"
+        volumes: 
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        # deploy:
+        #     placements:
+        #         constraints: [node.role == manager]
+        networks: 
+            - webnet
+    
+    redis:
+        image: redis:latest
+        ports: 
+            - "6379:6379"
+        #for persistent data...where . implies current data ..can be change to pwd
+        volumes: 
+            - "./data:/data"
+        # deploy:
+        #     placements:
+        #         constraints: [node.role == manager]
+        #appendonly so the data is not clear after restart of service
+        command: redis-server --appendonly yes
+        networks: 
+            - webnet
+
 networks: 
-    webnet:
-            
+    webnet:        
