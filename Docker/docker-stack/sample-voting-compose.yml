@@ -14,9 +14,12 @@ services:
         condition: on-failure
   db:
     image: postgres:9.4
+    secrets:
+      - db_username
+      - db_password
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER_FILE: /run/secrets/db_username
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -91,3 +94,9 @@ networks:
 
 volumes:
   db-data:
+
+secrets:
+  db_username:
+    file: ./postgres_user.txt
+  db_password:
+    file: ./postgres_password.txt
