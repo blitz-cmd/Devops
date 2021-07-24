@@ -37,7 +37,7 @@ services:
         # deploy:
         #     placements:
         #         constraints: [node.role == manager]
-        #appendonly so the data is not clear after restart of service
+        # appendonly so the data is not cleared after restart of service
         command: redis-server --appendonly yes
         networks: 
             - webnet
