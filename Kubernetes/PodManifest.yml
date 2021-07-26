@@ -1,0 +1,13 @@
+apoVerdion: v1
+kind: Pod
+metadata: 
+  name: nginxwebproxy
+  labels:
+    app: nginxpod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - name: nginxport
+        containerPort: 80
