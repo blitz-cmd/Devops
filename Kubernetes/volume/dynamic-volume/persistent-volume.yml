@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: aws-standard
+provisioner: kubernetes.io/aws-ebs      #using aws elastic block service
+parameters:
+  type: gp2                             #general purpose ssd volume
+  zone: ap-south-1a                     #region mumbai, availability zone a

@@ -1,2 +1,8 @@
 # devops
-All devops related materials
+My DevOps learning journey...
+
+Tech Stack :-
+-Git
+-Jenkins
+-Docker
+-Kubernetes
