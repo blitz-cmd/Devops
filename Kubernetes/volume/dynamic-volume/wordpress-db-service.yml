@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordpress-db
+  name: wordpress-db1
 spec:
   ports:
-  - port: 3306
-    protocol: TCP
+    - port: 3306
+      protocol: TCP
   selector:
-    app: wordpress-db
-  type: NodePort        #service type
+    app: wordpress-db1
+  type: NodePort #service type
