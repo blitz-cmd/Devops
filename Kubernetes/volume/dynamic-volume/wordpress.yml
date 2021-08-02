@@ -13,17 +13,17 @@ spec:
         app: wordpress
     spec:
       containers:
-      - name: wordpress
-        image: wordpress:5.2-php7.1
-        ports:
-        - name: http-port
-          containerPort: 80
-        env:
-        - name: WORDPRESS_DB_HOST
-          value: wordpress-db1
-        - name: WORDPRESS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: wordpress-secrets
-              key: db-password #using wordpress-secret for password
-            
+        - name: wordpress
+          image: wordpress:5.2-php7.1
+          ports:
+            - name: http-port
+              containerPort: 80
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: wordpress-db
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-secrets
+                  key: db-password #using wordpress-secret for password
+
