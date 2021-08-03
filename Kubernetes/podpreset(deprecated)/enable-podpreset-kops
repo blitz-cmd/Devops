@@ -1,0 +1,28 @@
+#PodPreset is deprecated in k8s v.1.18 above
+#alternatives kustomize & metacontroller
+
+command:-
+
+-kops edit cluster --state=s3://<bucket-name> <cluster name>
+
+add below command at the end
+
+kubeAPIServer:
+    enableAdmissionPlugins:
+    - Initializers
+    - NamespaceLifecycle
+    - LimitRanger
+    - ServiceAccount
+    - PersistentVolumeLabel
+    - DefaultStorageClass
+    - DefaultTolerationSeconds
+    - MutatingAdmissionWebhook
+    - ValidatingAdmissionWebhook
+    - NodeRestriction
+    - ResourceQuota
+    - PodPreset
+    runtimeConfig:
+        settings.k8s.io/v1alpha1: "true"
+
+you can verify by run the same command
+-kops edit cluster --state=s3://<bucket-name> <cluster name>
