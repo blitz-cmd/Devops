@@ -16,29 +16,7 @@ $ kops create cluster --yes --state=s3://<s3_bucket_name> --zones=ap-south-1a --
 ```
 $ kops validate cluster --state=s3://<s3_bucket_name>
 ```
-### Create manifest file for deployment & service and deploy it
-```
-$ nano autoscale.yml
-$ kubectl create -f autoscale.yml
-```
-### To watch live status to below services
-```
-$ kubectl get service,hpa,pod,deployment -owide
-$ watch -n1 !!
-```
-### Create HPA(Horizontal Pod Autoscaler) for the deployment
-```
-$ kubectl autoscale deployment <deployment_name> --min=2 --max=10 --cpu-percent=50
-```
-### (Optional) To verify the hpa
-```
-$ kubectl describe hpa
-$ kubectl get hpa
-```
-
-### While running above last command you will get \<unknown\> option in target column
-### For that we need to install metric server
-
+## To install metrics server
 ### First delete any existing metric server
 ```
 $ kubectl delete -n kube-system deployments.apps metrics-server
@@ -90,6 +68,30 @@ $ kops update cluster --state=s3://<bucket_name> <cluster_name> --yes
 ```
 $ kops rolling-update cluster --state=s3://<bucket_name> <cluster_name> --yes
 ```
+### Create manifest file for deployment & service and deploy it
+```
+$ nano autoscale.yml
+$ kubectl create -f autoscale.yml
+```
+### To watch live status to below services
+```
+$ kubectl get service,hpa,pod,deployment -owide
+$ watch -n1 !!
+```
+### Create HPA(Horizontal Pod Autoscaler) for the deployment
+```
+$ kubectl autoscale deployment <deployment_name> --min=2 --max=10 --cpu-percent=50
+```
+### (Optional) To verify the hpa
+```
+$ kubectl describe hpa
+$ kubectl get hpa
+```
+
+### While running above last command you will get \<unknown\> option in target column
+### For that we need to install metric server
+
+
 ### Get all nodes
 ```
 $ kubectl get nodes
@@ -97,6 +99,7 @@ $ kubectl get nodes
 ### Check memory consumption by these nodes
 ```
 $ kubectl top nodes
+$ kubectl top pods
 ```
 
 ## To demonstrate auto-scalling
@@ -104,7 +107,7 @@ $ kubectl top nodes
 ```
 $ kubectl run -i --tty busy-box --image=busybox /bin/sh
 $ wget http://hpa-example.default.svc.cluster.local:31010
-$ while true; do wget -q -O- http://hpaexample.default.svc.cluster.local:31010; done
+$ while true; do wget -q -O- http://hpa-example.default.svc.cluster.local:31010; done
 ```
 
 ### Delete cluster
