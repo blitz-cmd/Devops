@@ -8,15 +8,14 @@ terraform {
 
   required_version = ">= 0.14.9"
 }
-
 provider "aws" {
   profile = "default"
-  region  = "ap-south-1"
+  region  = var.region
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-04db49c0fb2215364"
-  instance_type = "t2.micro"
+  ami           = var.ami
+  instance_type = var.type
 
   tags = {
     Name = "ExampleAppServerInstance"
